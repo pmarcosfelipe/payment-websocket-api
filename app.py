@@ -18,9 +18,9 @@ def create_payment_pix():
     
     expiration_date = datetime.now() + timedelta(minutes=30)
 
-    new_payment = Payment(value=data.value, expiration_date=expiration_date)
+    new_payment = Payment(value=data["value"], expiration_date=expiration_date)
     db.session.add(new_payment)
-    db.commit()
+    db.session.commit()
 
     return jsonify({'message': 'The payment has been created!', 'payment': new_payment.to_dict()})
 
