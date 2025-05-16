@@ -7,7 +7,7 @@ class Pix:
 
     def create_payment(self):
         # creates payment in the financial institution
-        bank_payment_id = uuid.uuid4()
+        bank_payment_id = str(uuid.uuid4())
 
         # qr code
         hash_payment = f'has_payment_{bank_payment_id}'
