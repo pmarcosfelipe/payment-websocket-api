@@ -16,12 +16,14 @@
     <main>
       <header>
         <div id="qr-code">
-          <img src="{{ host }}/payments/pix/qrcode/{{ qr_code }}" alt="QR Code" />
+          <img src="{{ url_for('static', filename='template_img/qrcode.png') }}" alt="QR Code" />
+
+          <img id="confirmed-icon" src="{{ url_for('static', filename='template_img/check.svg') }}" alt="Payment confirmed icon" />
         </div>
 
         <aside>
-          <h1>Order done!</h1>
-          <p>To pay, select the option <strong>Pix with QR Code </strong> on your payment application and scan the QR Code.</p>
+          <h1 id="title-text" style="color: #56a92f !important">Payment confirmed!</h1>
+          <p id="description">Payment was confirmed by your financial institute.</p>
 
           <div id="purchase-value">
             <img src="{{ url_for('static', filename='template_img/tag.svg') }}" alt="Tag Icon" />
@@ -32,15 +34,8 @@
 
       <footer>
         <div id="expiration-time">
-          <header>
-            <small>This QR Code expires in</small>
-            <div>
-              <img src="{{ url_for('static', filename='template_img/clock.svg') }}" alt="Clock Icon" />
-              <span>30 minutes</span>
-            </div>
-          </header>
-
-          <span>You will be alerted when the payment is completed</span>
+          <img src="{{ url_for('static', filename='template_img/currency.svg') }}" alt="Currency Icon" />
+          <span>We received your order payment confirmation via PIX!</span>
         </div>
 
         <div id="order">
@@ -52,22 +47,5 @@
         </div>
       </footer>
     </main>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-      crossorigin="anonymous"
-    ></script>
-    <script type="text/javascript" charset="utf-8">
-      var socket = io.connect('{{ host }}');
-      socket.on('connect', function () {
-        console.log('websocket connected...');
-      });
-
-      socket.on('payment-confirmed-{{payment_id}}', function () {
-        console.log('payment confirmed');
-        location.reload();
-      });
-    </script>
   </body>
 </html>
